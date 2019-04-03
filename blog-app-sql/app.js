@@ -72,10 +72,6 @@ app.get('/update-post/:id', (req, res) => {
     let updateID = parseInt(req.params.id)
     res.render('update-post', { updateID: updateID })
 })
-// app.get('/update-post', (req, res) => {
-//     let updateID = parseInt(req.body.id)
-//     res.render('update-post', { updateID: updateID })
-// })
 
 
 app.post('/update-post', (req, res) => {
