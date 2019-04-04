@@ -11,21 +11,32 @@
 
 <body>
 {{> nav}}
+
+        <h4>{{post.title}}</h4>
+        <p>{{post.body}}</p>
+        <div style="display: inline-block;">
+            <form action="/add-comment/{{post.id}}" method="POST">
+                <input type="hidden" name="id" value="{{post.id}}">
+                <button typw="submit">Add Comment</button>
+                <input type="text" name="title">
+                <input type="text" name="body">
+
+            </form>
+        </div>
+
 <ul style="list-style: none;">
-{{#posts}}
+{{#post}}
     <li>
     <div style="border-bottom: solid 1px gray;">
-        <h4>{{title}}</h4>
-        <p>{{body}}</p>
         <div>
             <div style="background-color: whitesmoke;">
                 <p>Comments:</p>
                  <ul style="list-style: none;">
-                     {{#comments}}
+                     {{#post.comments}}
                      <li style="border-bottom: solid 1px dimgray;">
-                         <p>{{comment}}</p>
+                         <p>{{body}}</p>
                      </li>
-                     {{/comments}}
+                     {{/post.comments}}
 
                      {{^comments}}
                      <p>No Comments</p>
@@ -33,24 +44,11 @@
                  </ul>
             </div>
         </div>
-        <div style="display: inline-block;">
-            <form action="/add-comment/{{id}}" method="POST">
-                <input type="hidden" name="id" value="{{id}}">
-                <button typw="submit">Add Comment</button>
-                <input type="text" name="comment">
-            </form>
-        </div>
-        <div style="display: inline-block;">
-               
-        </div>
     </div>
     </li>
 
-{{/posts}}
+{{/post}}
 
-{{^posts}}
-<h5>Sorry. No posts available.</h5>
-{{/posts}}
 </ul>
 
    

@@ -114,6 +114,39 @@ app.post('/filter-posts', (req, res) => {
     })
 })
 
+app.get('/comments/:id', (req, res) => {
+    let postID = parseInt(req.params.id)
+    //Code here
+    // res.render('comments', { postID })
+    models.Post.findByPk(postID, {
+        include: [{
+            model: models.Comment,
+            as: 'comments'
+        }]
+    }).then((post) => {
+        console.log(post.comments)
+        res.render('comments', { post: post })
+    })
+})
+app.post('/add-comment/:id', (req, res) => {
+    let title = req.body.title
+    let body = req.body.body
+    let id = req.body.id
+    let comment = models.Comment.build(
+        {
+            title: title,
+            body: body,
+            postid: id
+        }
+    )
+    comment.save().then((savedComment) => {
+        console.log(savedComment)
+    }).then(() => {
+        res.redirect('/comments/' + id)
+    })
+
+})
+
 
 app.listen(3000, () => {
     console.log("Server is listening...")
